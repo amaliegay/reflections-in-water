@@ -1,0 +1,30 @@
+[package]
+name = "reflections in water"
+description = "reflections in water adds an underwater Shrine of Paralothas in Azura's Coast."
+repository = "https://github.com/amaliegay/reflections-in-water"
+authors = ["JosephMcKean"]
+version = "1.0.0"
+
+[dependencies]
+assets = [
+    "reflections in water.esp",
+    "Icons\\jsmk\\rw",
+    "Meshes\\jsmk\\rw",
+    "Textures\\jsmk\\rw",
+    "MWSE\\mods\\JosephMcKean\\reflectionsInWater",
+]
+
+[dependencies.mwse]
+buildnumber = 3186
+
+[dependencies.mods."OAAB_Data"]
+version = "^2.1.8"
+url = "https://www.nexusmods.com/morrowind/mods/49042"
+
+[dependencies.mods."Tamriel_Data"]
+plugins = "Tamriel_Data.esm"
+url = "https://www.nexusmods.com/morrowind/mods/44537"
+
+[dependencies.mods."Tamriel_Rebuilt"]
+plugins = "TR_Mainland.esm"
+url = "https://www.nexusmods.com/morrowind/mods/42145"
