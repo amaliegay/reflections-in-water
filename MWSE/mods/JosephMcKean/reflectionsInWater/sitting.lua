@@ -25,17 +25,9 @@ local function disableControls(state)
 	tes3.mobilePlayer.mouseLookDisabled = state
 end
 
-local function onTabUp()
-	timer.delayOneFrame(function()
-		tes3.setVanityMode({ enabled = true })
-	end)
-end
+local function onTabUp() timer.delayOneFrame(function() tes3.setVanityMode({ enabled = true }) end) end
 
-local function onTabDown()
-	timer.delayOneFrame(function()
-		tes3.setVanityMode({ enabled = false })
-	end)
-end
+local function onTabDown() timer.delayOneFrame(function() tes3.setVanityMode({ enabled = false }) end) end
 
 local function stopAnimation()
 	tes3.playAnimation({ reference = tes3.player, mesh = previousAnimationMesh, group = tes3.animationGroup.idle })
@@ -43,19 +35,13 @@ local function stopAnimation()
 	previousAnimationMesh = nil
 end
 
-local function blockSave()
-	return false
-end
+local function blockSave() return false end
 
 -- handle keypress to cancel animation
 ---@param e keyDownEventData
 local function checkKeyPress(e)
-	if tes3ui.menuMode() then
-		return
-	end
-	if e.keyCode == 183 then
-		return
-	end -- allow screenshots
+	if tes3ui.menuMode() then return end
+	if e.keyCode == 183 then return end -- allow screenshots
 
 	-- If this is tab being pressed down 
 	-- only for non-location, moving messing up camera
@@ -103,7 +89,7 @@ local function completePilgrimage()
 	if skillsModule then
 		local skill = skillsModule.getSkill("fishing")
 		if skill then
-			skill:progressSkill(1000)
+			for _ = 1, 10 do skill:progressSkill(100) end
 			message = message .. "\nYou gained knowledge of the nature of fish. Your fishing skill has improved."
 		end
 	end
@@ -123,12 +109,8 @@ local function sitDown(statue)
 		iterations = -1,
 		callback = function()
 			tes3.player.data.reflectionsInWater.secondSpentPraying = tes3.player.data.reflectionsInWater.secondSpentPraying + 1
-			if tes3.player.data.reflectionsInWater.pilgrimageComplete then
-				return
-			end
-			if tes3.player.data.reflectionsInWater.secondSpentPraying >= 60 then
-				completePilgrimage()
-			end
+			if tes3.player.data.reflectionsInWater.pilgrimageComplete then return end
+			if tes3.player.data.reflectionsInWater.secondSpentPraying >= 60 then completePilgrimage() end
 		end,
 	})
 	tes3.setVanityMode({ enabled = true })
@@ -140,24 +122,12 @@ end
 
 ---@param e activateEventData
 local function meditate(e)
-	if not (e.activator == tes3.player) then
-		return
-	end
-	if e.target.id ~= "jsmk_rw_ex_slaughterfish" then
-		return
-	end
+	if not (e.activator == tes3.player) then return end
+	if e.target.id ~= "jsmk_rw_ex_slaughterfish" then return end
 	local questIndex = tes3.getJournalIndex({ id = "jsmk_rw" })
 	local healFish = questIndex >= 1 and questIndex < 100
 	local message = healFish and "Would you like to pray for the stranded fish's health at the Shrine of Paralothas?" or
 	                "Would you like to meditate at the Shrine of Paralothas?"
-	tes3.messageBox({
-		message = message,
-		buttons = { "Yes", "No" },
-		callback = function(data)
-			if data.button == 0 then
-				sitDown(e.target)
-			end
-		end,
-	})
+	tes3.messageBox({ message = message, buttons = { "Yes", "No" }, callback = function(data) if data.button == 0 then sitDown(e.target) end end })
 end
 event.register("activate", meditate)
