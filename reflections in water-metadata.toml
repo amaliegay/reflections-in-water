@@ -1,9 +1,9 @@
 [package]
-name = "reflections in water"
+name = "Shrine of Paralothas"
 description = "reflections in water adds an underwater Shrine of Paralothas in Azura's Coast."
 repository = "https://github.com/amaliegay/reflections-in-water"
 authors = ["JosephMcKean"]
-version = "1.0.0"
+version = "1.0.1"
 
 [dependencies]
 assets = [
@@ -15,7 +15,7 @@ assets = [
 ]
 
 [dependencies.mwse]
-buildnumber = 3186
+buildnumber = 3210
 
 [dependencies.mods."OAAB_Data"]
 version = "^2.1.8"
